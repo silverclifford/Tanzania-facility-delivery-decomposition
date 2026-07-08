@@ -1,4 +1,4 @@
- # Decomposing wealth and residential inequalities in facility delivery in Tanzania
+# Decomposing wealth and residential inequalities in facility delivery in Tanzania
 
 Analysis code for a Blinder–Oaxaca-type decomposition of rural–urban and wealth-related
 inequalities in health facility delivery among women in Tanzania, using the
@@ -50,6 +50,14 @@ decomposition**:
 The decomposition is implemented directly in `numpy` (no specialised decomposition
 package is required).
 
+**Uncertainty.** 95% confidence intervals for all prevalences and decomposition
+components are obtained from a **cluster bootstrap** (1,000 replications) that resamples
+primary sampling units within strata and applies the sampling weights, so that weighting,
+clustering, and stratification are all reflected in the intervals. The notebook also
+includes a formal wealth-by-residence interaction test (weighted model with a joint Wald
+test based on the bootstrap covariance), linear-probability-model diagnostics, a
+missing-data assessment, and sensitivity analyses (ANC 8+ threshold; excluding ANC).
+
 ### Variables
 
 | Variable (role) | DHS source | Coding |
@@ -58,8 +66,8 @@ package is required).
 | Residence | `v025` | Urban / Rural |
 | Region | `v024` | 26 regions |
 | Wealth quintile | `v190` | Poorest / Poorer / Middle / Richer / Richest |
-| Maternal education | `v106` | No education / Primary / Secondary / Higher |
-| ANC attendance | `m14_1` | Number of ANC visits; "no visits" = 0; "don't know" = missing; ANC 4+ vs <4 |
+| Maternal education | `v106` | No education / Primary / Secondary or higher (secondary and higher merged; higher was 1.1%) |
+| ANC attendance | `m14_1` | Number of ANC visits; "no visits" = 0; "don't know" = missing; ANC 4+ vs <4 (ANC 8+ used in sensitivity) |
 | Perceived distance | `v467d` | Big problem = 1 / Not a big problem = 0 |
 | Sampling weight | `v005` | `v005` / 1,000,000 |
 | Primary sampling unit | `v021` | 628 clusters |
@@ -73,6 +81,7 @@ package is required).
 - pandas
 - numpy
 - matplotlib
+- scipy (chi-square p-value for the interaction test)
 
 Exact versions used are listed in `requirements.txt`. To recreate the environment:
 
@@ -94,7 +103,7 @@ print("matplotlib:", matplotlib.__version__)
 
 ## Files
 
-- `DHS_Project_1.ipynb` — main analysis notebook (descriptives, decompositions, interaction, sensitivity analysis, figures)
+- `DHS_Project_1.ipynb` — main analysis notebook: environment, data loading, outcome and covariate construction, missing-data assessment, weighted prevalences with bootstrap 95% CIs (Table 1), both decompositions with CIs (Table 2), linear-probability-model diagnostics, the formal wealth-by-residence interaction test, sensitivity analyses (ANC 8+; excluding ANC), and figures
 - `requirements.txt` — package versions
 - `README.md` — this file
 

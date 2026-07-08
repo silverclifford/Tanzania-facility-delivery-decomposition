@@ -1,6 +1,8 @@
 # Python 3.9.13
-# Replace the version numbers below with the output of:
-#   import pandas, numpy, matplotlib; print(pandas.__version__, numpy.__version__, matplotlib.__version__)
+# Analysis dependencies. To confirm your own versions, run:
+#   import pandas, numpy, matplotlib, scipy
+#   print(pandas.__version__, numpy.__version__, matplotlib.__version__, scipy.__version__)
 pandas==1.5.3
 numpy==1.23.5
 matplotlib==3.9.3
+scipy==X.X.X
